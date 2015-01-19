@@ -79,10 +79,11 @@ if (CAUDIO_IOS_BUILD)
   set(XCODE_ATTRIBUTE_SDKROOT iphoneos)
   set(MACOSX_BUNDLE_GUI_IDENTIFIER "com.YOUR_COMPANY.\${PRODUCT_NAME:rfc1034identifier}")
 
-  set(CMAKE_OSX_ARCHITECTURES $(ARCHS_STANDARD_32_BIT))
+  # set(CMAKE_OSX_ARCHITECTURES $(ARCHS_STANDARD_32_BIT))
+  set(CMAKE_OSX_ARCHITECTURES $(ARCHS_STANDARD_32_64_BIT))
 
-  add_definitions(-fno-regmove)
-  add_definitions(-falign-loops=16)
+  # add_definitions(-fno-regmove)
+  # add_definitions(-falign-loops=16)
   remove_definitions(-msse)
 
 elseif (APPLE AND NOT CAUDIO_IOS_BUILD)

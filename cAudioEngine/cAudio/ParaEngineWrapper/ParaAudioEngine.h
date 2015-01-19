@@ -43,7 +43,8 @@ namespace ParaEngine
 		\param toLoop: Whether to loop (restart) the audio when the end is reached.
 		\return True if the source is playing, false if not. */
 		virtual bool play3d(const PARAVECTOR3& position, const float& soundstr = 1.0 , const bool& toLoop = false){
-			return m_pSource->play3d((const cVector3&)FixCoordinate(position), soundstr, toLoop);
+			auto v = FixCoordinate(position);
+			return m_pSource->play3d((const cVector3&)v, soundstr, toLoop);
 		};
 		
 		//! Pauses playback of the sound source.
@@ -105,17 +106,26 @@ namespace ParaEngine
 		//! Sets the position of the source in 3D space.
 		/**
 		\param position: A 3D vector giving the new location to put this source. */
-		virtual void setPosition(const PARAVECTOR3& position){return m_pSource->setPosition((const cVector3&)FixCoordinate(position));};
+		virtual void setPosition(const PARAVECTOR3& position){
+			auto v = FixCoordinate(position);
+			return m_pSource->setPosition((const cVector3&)v);
+		};
 
 		//! Sets the current velocity of the source for doppler effects.
 		/**
 		\param velocity: A 3D vector giving the speed and direction that the source is moving. */
-		virtual void setVelocity(const PARAVECTOR3& velocity){return m_pSource->setVelocity((const cVector3&)FixCoordinate(velocity));};
+		virtual void setVelocity(const PARAVECTOR3& velocity){
+			auto v = FixCoordinate(velocity);
+			return m_pSource->setVelocity((const cVector3&)v);
+		};
 
 		//! Sets the direction the source is facing.
 		/**
 		\param direction: A 3D vector giving the direction that the source is aiming. */
-		virtual void setDirection(const PARAVECTOR3& direction){return m_pSource->setDirection((const cVector3&)FixCoordinate(direction));};
+		virtual void setDirection(const PARAVECTOR3& direction){
+			auto v = FixCoordinate(direction);
+			return m_pSource->setDirection((const cVector3&)v);
+		};
 
 		//! Sets the factor used in attenuating the source over distance.
 		/** Larger values make it attenuate faster, smaller values make the source carry better.
@@ -137,7 +147,7 @@ namespace ParaEngine
 		//! Sets the distance from the source where attenuation will stop.
 		/** Range: 0.0f to +inf
 		\param maxDistance: Distance where attenuation will cease.  Normally the farthest range you can hear the source. */
-		virtual void setMaxDistance(const float& maxDistance) { m_pSource->setMaxAttenuationDistance(maxDistance); };
+		virtual void setMaxDistance(const float& maxDistance);;
 
 		//! Sets the pitch of the source.
 		/** Range: 0.0f to +inf (Default: 1.0f)
@@ -184,21 +194,36 @@ namespace ParaEngine
 		//! Overrides the doppler velocity vector.  It is usually better to let the engine take care of it automatically.
 		/** Note: must be set every time you set the position, velocity, or direction.
 		\param dvelocity: New doppler vector for the source. */
-		virtual void setDopplerVelocity(const PARAVECTOR3& dvelocity) {m_pSource->setDopplerVelocity((const cVector3&)FixCoordinate(dvelocity));};
+		virtual void setDopplerVelocity(const PARAVECTOR3& dvelocity) {
+			auto v = FixCoordinate(dvelocity);
+			m_pSource->setDopplerVelocity((const cVector3&)v);
+		};
 
 		//! Convenience function to automatically set the velocity and position for you in a single call.
 		/** Velocity will be set to new position - last position.
 		\param position: Position to move the source to. */
-		virtual void move(const PARAVECTOR3& position){m_pSource->move((const cVector3&)FixCoordinate(position));};
+		virtual void move(const PARAVECTOR3& position){
+			auto v = FixCoordinate(position);
+			m_pSource->move((const cVector3&)v);
+		};
 
 		//! Returns the audio objects position
-		virtual const PARAVECTOR3 getPosition() const {return FixCoordinate((PARAVECTOR3&)(m_pSource->getPosition()));};
+		virtual const PARAVECTOR3 getPosition() const {
+			auto v = m_pSource->getPosition();
+			return FixCoordinate((PARAVECTOR3&)(v));
+		};
 
 		//! Returns the audio objects velocity
-		virtual const PARAVECTOR3 getVelocity() const {return FixCoordinate((PARAVECTOR3&)(m_pSource->getVelocity()));};
+		virtual const PARAVECTOR3 getVelocity() const {
+			auto v = m_pSource->getVelocity();
+			return FixCoordinate((PARAVECTOR3&)(v));
+		};
 
 		//! Returns the audio objects direction
-		virtual const PARAVECTOR3 getDirection() const {return FixCoordinate((PARAVECTOR3&)(m_pSource->getDirection()));};
+		virtual const PARAVECTOR3 getDirection() const {
+			auto v = m_pSource->getDirection();
+			return FixCoordinate((PARAVECTOR3&)(v));
+		};
 
 		//! Returns the factor used in attenuating the source over distance
 		virtual const float getRolloffFactor() const {return m_pSource->getRolloffFactor();};
@@ -237,7 +262,10 @@ namespace ParaEngine
 		virtual const float getDopplerStrength() const {return m_pSource->getDopplerStrength();};
 
 		//! Returns the override for the doppler velocity vector
-		virtual const PARAVECTOR3 getDopplerVelocity() const {return FixCoordinate((PARAVECTOR3&)(m_pSource->getDopplerVelocity()));};
+		virtual const PARAVECTOR3 getDopplerVelocity() const {
+			auto v = m_pSource->getDopplerVelocity();
+			return FixCoordinate((PARAVECTOR3&)(v));
+		};
 
 		/** Registers a new event handler to this source
 		* @param handler: Pointer to the event handler to register. */
@@ -377,22 +405,34 @@ namespace ParaEngine
 		Use move() if you'd like to have cAudio automatically handle velocity for you. */
 		/**
 		\param pos: New position for the listener. */
-		virtual void setPosition(const PARAVECTOR3& pos) { m_audio_manager->getListener()->setPosition((const cVector3&)FixCoordinate(pos));};
+		virtual void setPosition(const PARAVECTOR3& pos) { 
+			auto v = FixCoordinate(pos);
+			m_audio_manager->getListener()->setPosition((const cVector3&)v);
+		};
 
 		//! Sets the direction the listener is facing
 		/**
 		\param dir: New direction vector for the listener. */
-		virtual void setDirection(const PARAVECTOR3& dir)  { m_audio_manager->getListener()->setDirection((const cVector3&)FixCoordinate(dir));};
+		virtual void setDirection(const PARAVECTOR3& dir)  { 
+			auto v = FixCoordinate(dir);
+			m_audio_manager->getListener()->setDirection((const cVector3&)v);
+		};
 
 		//! Sets the up vector to use for the listener
 		/** Default up vector is Y+, same as OpenGL.
 		\param up: New up vector for the listener. */
-		virtual void setUpVector(const PARAVECTOR3& up)  { m_audio_manager->getListener()->setUpVector((const cVector3&)FixCoordinate(up));};
+		virtual void setUpVector(const PARAVECTOR3& up)  { 
+			auto v = FixCoordinate(up);
+			m_audio_manager->getListener()->setUpVector((const cVector3&)v);
+		};
 
 		//! Sets the current velocity of the listener for doppler effects
 		/**
 		\param vel: New velocity for the listener. */
-		virtual void setVelocity(const PARAVECTOR3& vel)  { m_audio_manager->getListener()->setVelocity((const cVector3&)FixCoordinate(vel));};
+		virtual void setVelocity(const PARAVECTOR3& vel)  { 
+			auto v = FixCoordinate(vel);
+			m_audio_manager->getListener()->setVelocity((const cVector3&)v);
+		};
 
 		//! Sets the global volume modifier (will effect all sources)
 		/**
@@ -402,19 +442,34 @@ namespace ParaEngine
 		//! Convenience function to automatically set the velocity and position for you in a single call
 		/** Velocity will be set to new position - last position 
 		\param pos: New position to move the listener to. */
-		virtual void move(const PARAVECTOR3& pos)  {m_audio_manager->getListener()->move((const cVector3&)FixCoordinate(pos));};
+		virtual void move(const PARAVECTOR3& pos)  {
+			auto v = FixCoordinate(pos);
+			m_audio_manager->getListener()->move((const cVector3&)v);
+		};
 
 		//! Returns the current position of the listener
-		virtual PARAVECTOR3 getPosition(void) const {return FixCoordinate((PARAVECTOR3&)(m_audio_manager->getListener()->getPosition()));};
+		virtual PARAVECTOR3 getPosition(void) const {
+			auto v = m_audio_manager->getListener()->getPosition();
+			return FixCoordinate((PARAVECTOR3&)(v));
+		};
 
 		//! Returns the current direction of the listener
-		virtual PARAVECTOR3 getDirection(void) const {return FixCoordinate((PARAVECTOR3&)(m_audio_manager->getListener()->getDirection()));};
+		virtual PARAVECTOR3 getDirection(void) const {
+			auto v = m_audio_manager->getListener()->getDirection();
+			return FixCoordinate((PARAVECTOR3&)(v));
+		};
 
 		//! Returns the current up vector of the listener
-		virtual PARAVECTOR3 getUpVector(void) const {return FixCoordinate((PARAVECTOR3&)(m_audio_manager->getListener()->getUpVector()));};
+		virtual PARAVECTOR3 getUpVector(void) const {
+			auto v = m_audio_manager->getListener()->getUpVector();
+			return FixCoordinate((PARAVECTOR3&)(v));
+		};
 
 		//! Returns the current velocity of the listener
-		virtual PARAVECTOR3 getVelocity(void) const {return FixCoordinate((PARAVECTOR3&)(m_audio_manager->getListener()->getVelocity()));};
+		virtual PARAVECTOR3 getVelocity(void) const {
+			auto v = m_audio_manager->getListener()->getVelocity();
+			return FixCoordinate((PARAVECTOR3&)(v));
+		};
 
 		//! Returns the global volume modifier for all sources
 		virtual float getMasterVolume(void) const {return m_audio_manager->getListener()->getMasterVolume();};

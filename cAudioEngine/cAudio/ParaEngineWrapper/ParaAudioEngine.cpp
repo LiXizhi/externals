@@ -23,6 +23,7 @@ PARAVECTOR3 ParaEngine::FixCoordinate(const PARAVECTOR3& v)
 CParaAudioEngine::CParaAudioEngine()
 	:m_audio_manager(NULL), m_plugin_mp3(NULL)
 {
+#ifdef CAUDIO_COMPILE_WITH_PLUGIN_SUPPORT
 	// load plugins for MP3 and effects
 	cPluginManager* pluginManager = cAudio::cPluginManager::Instance();
 	m_plugin_mp3 = new cMP3DecoderPlugin();
@@ -30,6 +31,7 @@ CParaAudioEngine::CParaAudioEngine()
 	{
 		pluginManager->installPlugin(m_plugin_mp3, "plugin_mp3");
 	}
+#endif
 
 	//Create an initialized Audio Manager
 	m_audio_manager = cAudio::createAudioManager(false);
@@ -251,4 +253,9 @@ void ParaEngine::CParaAudioSource::onPause()
 	{
 		m_pEventHandler->onPause();
 	}
+}
+
+void ParaEngine::CParaAudioSource::setMaxDistance(const float& maxDistance)
+{
+	m_pSource->setMaxAttenuationDistance(maxDistance);
 }

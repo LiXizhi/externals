@@ -37,10 +37,11 @@
 #endif 
 
 
-#if !defined( CAUDIO_PLATFORM_IPHONE ) && CAUDIO_STATIC_LIB == 0
+// Fix LiXizhi: we are actually statically linked MP3 plugin, so iOS can enable CAUDIO_COMPILE_WITH_PLUGIN_SUPPORT
+// #if !defined( CAUDIO_PLATFORM_IPHONE ) && CAUDIO_STATIC_LIB == 0
 //! This define controls whether plugin support is added into the library, commenting it out will prevent any plugins from working
 #	define CAUDIO_COMPILE_WITH_PLUGIN_SUPPORT
-#endif
+// #endif
 
 //! Size of the internal buffer per source for audio data (total amount buffered is CAUDIO_SOURCE_BUFFER_SIZE * CAUDIO_SOURCE_NUM_BUFFERS)
 #define CAUDIO_SOURCE_BUFFER_SIZE ( 1024 * 64 )
