@@ -22,6 +22,7 @@ namespace cAudio
 
 	cPluginManager::~cPluginManager()
 	{
+#if !defined(CAUDIO_PLATFORM_IPHONE)
 		DynamicallyLoadedPluginsIterator it;
 		for(it = DynamicallyLoadedPlugins.begin(); it != DynamicallyLoadedPlugins.end(); it++)
 		{
@@ -32,6 +33,7 @@ namespace cAudio
 				getLogger()->logError("cPluginManager", "Plugin Error: %s.", toUTF8(getError()));
 			}
 		}
+#endif
 	}
 
 	bool cPluginManager::installPlugin(IAudioPlugin* plugin, const char* name)
@@ -53,6 +55,7 @@ namespace cAudio
 
 	bool cPluginManager::installPlugin(const char* filename, const char* name)
 	{
+#if !defined(CAUDIO_PLATFORM_IPHONE)
 		DYNLIB_HANDLE m_hInst = DYNLIB_LOAD(filename);
 		if(m_hInst)
 		{
@@ -72,6 +75,7 @@ namespace cAudio
 			else
 				getLogger()->logError("cPluginManager", "installPlugin Error: %s.", toUTF8(getError()));
 		}
+#endif
 		return false;
 	}
 
@@ -107,6 +111,7 @@ namespace cAudio
 
 	void cPluginManager::uninstallPlugin(IAudioPlugin* plugin)
 	{
+#if !defined(CAUDIO_PLATFORM_IPHONE)
 		if(plugin)
 		{
 			RegisteredPluginsIterator it;
@@ -131,6 +136,7 @@ namespace cAudio
 				DynamicallyLoadedPlugins.erase(it2->first);
 			}
 		}
+#endif
 	}
 
 	void cPluginManager::uninstallPlugin(const char* name)
@@ -143,6 +149,7 @@ namespace cAudio
 
 	void cPluginManager::autoLoadPlugins()
 	{
+#if !defined(CAUDIO_PLATFORM_IPHONE)
 		cAudioVector<cAudioString>::Type fileList = getFilesInDirectory(".");
 		for(size_t i=0; i<fileList.size(); ++i)
 		{
@@ -161,6 +168,7 @@ namespace cAudio
 				}
 			}
 		}
+#endif
 	}
 
 	cAudioString cPluginManager::getError() 

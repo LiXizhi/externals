@@ -23,7 +23,8 @@ typedef struct HINSTANCE__* hInstance;
 #	define DYNLIB_LOAD( a ) LoadLibraryEx( a, NULL, LOAD_WITH_ALTERED_SEARCH_PATH )
 #	define DYNLIB_GETSYM( a, b ) GetProcAddress( a, b )
 #	define DYNLIB_UNLOAD( a ) !FreeLibrary( a )
-#elif defined(CAUDIO_PLATFORM_MAC) || defined(CAUDIO_PLATFORM_LINUX)
+// #elif defined(CAUDIO_PLATFORM_MAC) || defined(CAUDIO_PLATFORM_LINUX)
+#else
 #   include <dlfcn.h>
 #	define DYNLIB_HANDLE void*
 #	define DYNLIB_LOAD( a ) dlopen( a, RTLD_LAZY | RTLD_GLOBAL)
@@ -62,8 +63,10 @@ namespace cAudio
 
 		cAudioMap<cAudioString, IAudioPlugin*>::Type RegisteredPlugins;
 		typedef cAudioMap<cAudioString, IAudioPlugin*>::Type::iterator RegisteredPluginsIterator;
+#if !defined(CAUDIO_PLATFORM_IPHONE)
 		cAudioMap<IAudioPlugin*, DYNLIB_HANDLE>::Type DynamicallyLoadedPlugins;
 		typedef cAudioMap<IAudioPlugin*, DYNLIB_HANDLE>::Type::iterator DynamicallyLoadedPluginsIterator;
+#endif
 	};
 };
 
