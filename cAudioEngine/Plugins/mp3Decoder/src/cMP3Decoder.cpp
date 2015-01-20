@@ -271,8 +271,10 @@ bool cMP3Decoder::seek(float seconds, bool relative)
 {	
 	if(Valid)
 	{
-		int amountToSeek = seconds * (float)(Context->bit_rate / 8);
-        return setPosition(amountToSeek, relative);
+		//int amountToSeek = seconds * (float)(Context->bit_rate / 8);
+		// fixed by LiXizhi: the physical frame size is not Context->bit_rate / 8, but is some other constant value calculated below. 
+		int amountToSeek2 = (int)(seconds / getTotalTime() * (float)(Stream->getSize() - DataOffset));
+        return setPosition(amountToSeek2, relative);
 	}
 	return false;
 }
