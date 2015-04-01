@@ -3,5 +3,8 @@ boost/
 ffmpeg*/
 FreeImage*/
 bin/
+mac/
+cAudioEngine_android/
+cAudioEngine_ios/
 *.zip
 *.7z
