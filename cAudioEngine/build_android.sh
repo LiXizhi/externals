@@ -4,7 +4,7 @@ SOURCE_DIR=`pwd`
 #set config path
 NDK="/opt/android-ndk-r9d"
 PARAENGINE_ROOT="/opt/ParaEngine-Git"
-CMAKE_TOOLCHAIN_ROOT="/opt/android-cmake-master"
+CMAKE_TOOLCHAIN_ROOT="/opt/android-cmake"
 ANDROID_ABI="armeabi"
 ANDROID_NATIVE_API_LEVEL="android-9"
 DESTDIR="$SOURCE_DIR/prebuilt/android/${ANDROID_ABI}"
