@@ -3,7 +3,9 @@ PROJECT(cAudio)
 if(CAUDIO_STATIC)
 	ADD_DEFINITIONS(-DCAUDIO_STATIC_LIB)
 endif()
-add_definitions(-std=c++0x)
+if(BUILD_ON_ANDROID)
+    add_definitions(-DANDROID)
+endif()
 # generate cAudioBuildSettings.h 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../CMake/Templates/cAudioBuildSettings.h.in ${CMAKE_BINARY_DIR}/include/cAudioBuildSettings.h @ONLY)
 install(FILES ${CMAKE_BINARY_DIR}/include/cAudioBuildSettings.h DESTINATION include/cAudio)
@@ -37,11 +39,10 @@ install_all_targets(cAudio)
 # ParaEngineClient_SOURCE_DIR can be used to specify a single base
 # folder where the required dependencies may be found.
 
-set(ParaEngineClient_SOURCE_DIR ${PROJECT_SOURCE_DIR}/../../ParaEngine-Git/Mobile/trunk/ParaCraftMobile/frameworks/runtime-src/Classes CACHE PATH "Path to ParaEngine Src")
+set(ParaEngineClient_SOURCE_DIR ${PARAENGINE_ROOT}/Mobile/trunk/ParaCraftMobile/frameworks/runtime-src/Classes CACHE PATH "Path to ParaEngine Src")
 include_directories("${ParaEngineClient_SOURCE_DIR}")
 include_directories("${ParaEngineClient_SOURCE_DIR}/Core")
 include_directories("${ParaEngineClient_SOURCE_DIR}/NPL")
-include_directories("${ParaEngineClient_SOURCE_DIR}/util")
 include_directories("${PROJECT_SOURCE_DIR}/../Plugins/mp3Decoder/include/")
 
 IF(MSVC)

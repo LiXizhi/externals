@@ -46,6 +46,7 @@ set(CAUDIO_LIB_DIRECTORY "/lib")
 # Provide user options to customise the build process
 ######################################################################
 
+option(BUILD_ON_ANDROID "build on android" FALSE)
 # Customise what to build
 option(CAUDIO_STATIC "Static build" FALSE)
 option(CAUDIO_BUILD_SAMPLES "Build Samples" FALSE)
@@ -102,7 +103,7 @@ include(Dependencies)
 include(InstallDependencies)
 
 if(CAUDIO_ENABLE_OGG)
-	add_subdirectory(DependenciesSource/libogg-1.2.2)
+	add_subdirectory(DependenciesSource/libogg-1.3.2)
 	add_subdirectory(DependenciesSource/libvorbis-1.3.2)
 endif()
 

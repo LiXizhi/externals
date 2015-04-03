@@ -501,9 +501,12 @@ IF(NOT HAVE_WINDOWS_H)
 
     CHECK_C_COMPILER_FLAG(-pthread HAVE_PTHREAD)
     IF(HAVE_PTHREAD)
-        ADD_DEFINITIONS(-pthread)
-        SET(CMAKE_REQUIRED_FLAGS "${CMAKE_REQUIRED_FLAGS} -pthread")
-        SET(EXTRA_LIBS ${EXTRA_LIBS} -pthread)
+        #NOTE by leio:android doesn't need to load this lib!
+        IF(NOT BUILD_ON_ANDROID)
+            ADD_DEFINITIONS(-pthread)
+            SET(CMAKE_REQUIRED_FLAGS "${CMAKE_REQUIRED_FLAGS} -pthread")
+            SET(EXTRA_LIBS ${EXTRA_LIBS} -pthread)
+        ENDIF()
     ENDIF()
 
     CHECK_LIBRARY_EXISTS(pthread pthread_create "" HAVE_LIBPTHREAD)
