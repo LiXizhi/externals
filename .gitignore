@@ -6,5 +6,6 @@ bin/
 mac/
 cAudioEngine_android/
 cAudioEngine_ios/
+cAudioEngine/prebuilt/
 *.zip
 *.7z
