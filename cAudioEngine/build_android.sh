@@ -58,8 +58,8 @@ make
 if [ -f $BUILD_DIR/cAudio/libcAudio.a ]; then
     mv $BUILD_DIR/cAudio/libcAudio.a $DESTDIR/libcAudio.a
 fi;
-if [ -f $BUILD_DIR//DependenciesSource/libogg-1.3.2/libOgg.a ]; then
-    mv $BUILD_DIR//DependenciesSource/libogg-1.3.2/libOgg.a $DESTDIR/libOgg.a
+if [ -f $BUILD_DIR/DependenciesSource/libogg-1.3.2/libOgg.a ]; then
+    mv $BUILD_DIR/DependenciesSource/libogg-1.3.2/libOgg.a $DESTDIR/libOgg.a
 fi;
 if [ -f $BUILD_DIR/DependenciesSource/libvorbis-1.3.2/libVorbis.a ]; then
     mv $BUILD_DIR/DependenciesSource/libvorbis-1.3.2/libVorbis.a $DESTDIR/libVorbis.a
