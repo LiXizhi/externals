@@ -7,5 +7,7 @@ mac/
 cAudioEngine_android/
 cAudioEngine_ios/
 cAudioEngine/prebuilt/
+cAudioEngine/ios/
+cAudioEngine/android/
 *.zip
 *.7z
