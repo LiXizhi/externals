@@ -74,10 +74,10 @@ include(ConfigureBuild)
 
 if (CAUDIO_IOS_BUILD)
   # Set build variables
-  set(CMAKE_OSX_SYSROOT iphoneos)
+  set(CMAKE_OSX_SYSROOT ${IOS_SDK})
   set(CMAKE_OSX_DEPLOYMENT_TARGET "")
   set(CMAKE_EXE_LINKER_FLAGS "-framework Foundation -framework CoreGraphics -framework QuartzCore -framework UIKit -framework OpenGLES")
-  set(XCODE_ATTRIBUTE_SDKROOT iphoneos)
+  set(XCODE_ATTRIBUTE_SDKROOT ${IOS_SDK})
   set(MACOSX_BUNDLE_GUI_IDENTIFIER "com.YOUR_COMPANY.\${PRODUCT_NAME:rfc1034identifier}")
 
   # set(CMAKE_OSX_ARCHITECTURES $(ARCHS_STANDARD_32_BIT))
@@ -88,7 +88,8 @@ if (CAUDIO_IOS_BUILD)
   remove_definitions(-msse)
 
   add_definitions(-DPLATFORM_IPHONE)
-
+  add_definitions(-DPARA_TARGET_PLATFORM)
+  add_definitions(-DPARA_PLATFORM_IOS)
 elseif (APPLE AND NOT CAUDIO_IOS_BUILD)
 
   # Set 10.5 as the base SDK by default
