@@ -142,5 +142,6 @@ namespace ParaEngine
 		BulletPhysicsActor_Map_Type m_actors;
 
 		CPhysicsDebugDraw m_physics_debug_draw;
+		bool m_bInvertFaceWinding;
 	};
 }
