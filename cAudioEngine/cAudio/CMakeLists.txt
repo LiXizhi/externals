@@ -5,6 +5,7 @@ if(CAUDIO_STATIC)
 endif()
 if(BUILD_ON_ANDROID)
     add_definitions(-DANDROID)
+    add_definitions(-DSTATIC_LIBRARY)
 endif()
 # generate cAudioBuildSettings.h 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/../CMake/Templates/cAudioBuildSettings.h.in ${CMAKE_BINARY_DIR}/include/cAudioBuildSettings.h @ONLY)

@@ -90,6 +90,7 @@ if (CAUDIO_IOS_BUILD)
   add_definitions(-DPLATFORM_IPHONE)
   add_definitions(-DPARA_TARGET_PLATFORM)
   add_definitions(-DPARA_PLATFORM_IOS)
+  add_definitions(-DSTATIC_LIBRARY)
 elseif (APPLE AND NOT CAUDIO_IOS_BUILD)
 
   # Set 10.5 as the base SDK by default

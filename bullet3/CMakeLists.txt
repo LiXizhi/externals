@@ -43,6 +43,7 @@ option(BUILD_ON_ANDROID "build on android" FALSE)
 if(BUILD_ON_ANDROID)
     add_definitions(-DANDROID)
     add_definitions(-DPARAENGINE_MOBILE)
+    add_definitions(-DSTATIC_LIBRARY)
 endif()
 
 IF(MSVC)
