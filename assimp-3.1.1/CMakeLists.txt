@@ -100,7 +100,7 @@ IF (NOT TARGET uninstall)
 	add_custom_target(uninstall "${CMAKE_COMMAND}" -P "${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake")
 ENDIF()
 
-# Globally enable Boost resp. the Boost workaround â€“ it is also needed by the
+# Globally enable Boost resp. the Boost workaround â€?it is also needed by the
 # tools which include the Assimp headers.
 SET ( ASSIMP_ENABLE_BOOST_WORKAROUND ON CACHE BOOL
 	"If a simple implementation of the used Boost functions is used. Slightly reduces functionality, but enables builds without Boost available."

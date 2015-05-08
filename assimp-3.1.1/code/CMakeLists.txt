@@ -628,8 +628,8 @@ if (UNZIP_FOUND)
 else (UNZIP_FOUND)
 	SET (unzip_compile_SRCS ${unzip_SRCS})
 endif (UNZIP_FOUND)
-
-SET( assimp_src
+# all of supported format of assimp
+SET( assimp_src_backup
 	# Assimp Files
 	${Core_SRCS}
 	${Common_SRCS}
@@ -695,7 +695,52 @@ SET( assimp_src
 	# Moreover it's a drag to recompile assimp entirely each time a modification is made to one of the included header, which is definitely counter-productive.)
 	AssimpPCH.cpp
 )
+#ignored importer
+ADD_DEFINITIONS( -DASSIMP_BUILD_NO_X_IMPORTER -DASSIMP_BUILD_NO_3DS_IMPORTER -DASSIMP_BUILD_NO_MD3_IMPORTER -DASSIMP_BUILD_NO_MDL_IMPORTER -DASSIMP_BUILD_NO_MD2_IMPORTER 
+                 -DASSIMP_BUILD_NO_PLY_IMPORTER -DASSIMP_BUILD_NO_ASE_IMPORTER -DASSIMP_BUILD_NO_OBJ_IMPORTER -DASSIMP_BUILD_NO_HMP_IMPORTER -DASSIMP_BUILD_NO_SMD_IMPORTER 
+                 -DASSIMP_BUILD_NO_MDC_IMPORTER -DASSIMP_BUILD_NO_MD5_IMPORTER -DASSIMP_BUILD_NO_LWO_IMPORTER -DASSIMP_BUILD_NO_DXF_IMPORTER -DASSIMP_BUILD_NO_NFF_IMPORTER  
+                 -DASSIMP_BUILD_NO_RAW_IMPORTER -DASSIMP_BUILD_NO_OFF_IMPORTER -DASSIMP_BUILD_NO_AC_IMPORTER -DASSIMP_BUILD_NO_BVH_IMPORTER -DASSIMP_BUILD_NO_IRRMESH_IMPORTER 
+                 -DASSIMP_BUILD_NO_IRR_IMPORTER -DASSIMP_BUILD_NO_Q3D_IMPORTER -DASSIMP_BUILD_NO_B3D_IMPORTER -DASSIMP_BUILD_NO_COLLADA_IMPORTER -DASSIMP_BUILD_NO_TERRAGEN_IMPORTER
+                 -DASSIMP_BUILD_NO_CSM_IMPORTER -DASSIMP_BUILD_NO_3D_IMPORTER -DASSIMP_BUILD_NO_LWS_IMPORTER -DASSIMP_BUILD_NO_OGRE_IMPORTER -DASSIMP_BUILD_NO_MS3D_IMPORTER 
+                 -DASSIMP_BUILD_NO_COB_IMPORTER -DASSIMP_BUILD_NO_BLEND_IMPORTER -DASSIMP_BUILD_NO_Q3BSP_IMPORTER -DASSIMP_BUILD_NO_NDO_IMPORTER -DASSIMP_BUILD_NO_IFC_IMPORTER
+                 #-DASSIMP_BUILD_NO_STL_IMPORTER 
+                 #-DASSIMP_BUILD_NO_FBX_IMPORTER 
+                 -DASSIMP_BUILD_NO_XGL_IMPORTER )
+#ignored exporter
+ADD_DEFINITIONS( -DASSIMP_BUILD_NO_COLLADA_EXPORTER )
+ADD_DEFINITIONS( -DASSIMP_BUILD_NO_OBJ_EXPORTER )
+ADD_DEFINITIONS( -DASSIMP_BUILD_NO_PLY_EXPORTER )
 
+SET( assimp_src
+	# Assimp Files
+	${Core_SRCS}
+	${Common_SRCS}
+	${Logging_SRCS}
+	${Exporter_SRCS}
+	${PostProcessing_SRCS}
+
+	# Model Support
+        ${MaterialSystem_SRCS}
+	${STL_SRCS}
+	${FBX_SRCS}
+	
+	# Third-party libraries
+	${IrrXML_SRCS}
+	${ConvertUTF_SRCS}
+	${unzip_compile_SRCS}
+	${Poly2Tri_SRCS}
+	${Clipper_SRCS}
+	# Necessary to show the headers in the project when using the VC++ generator:
+	${Boost_SRCS}
+
+	${PUBLIC_HEADERS}
+	${COMPILER_HEADERS}
+	
+	# Old precompiled header
+	# (removed because the precompiled header is not updated when visual studio switch configuration which leads to failed compilation.
+	# Moreover it's a drag to recompile assimp entirely each time a modification is made to one of the included header, which is definitely counter-productive.)
+	AssimpPCH.cpp
+)
 #ADD_MSVC_PRECOMPILED_HEADER("AssimpPCH.h" "AssimpPCH.cpp" assimp_src)
 
 ADD_LIBRARY( assimp ${assimp_src} )
