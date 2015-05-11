@@ -336,7 +336,7 @@ void BaseImporter::ConvertToUTF8(std::vector<char>& data)
 			output.resize(output.size()?output.size()*3/2:data.size()/2);
 			dstart = &output.front(),dend = &output.back()+1;
 
-			result = ConvertUTF32toUTF8((const UTF32**)&sstart,(const UTF32*)send,(UTF8**)&dstart,(UTF8*)dend,lenientConversion);
+			result = assimp_ConvertUTF32toUTF8((const UTF32**)&sstart,(const UTF32*)send,(UTF8**)&dstart,(UTF8*)dend,lenientConversion);
 		} while(result == targetExhausted);
 
 		ReportResult(result);
@@ -367,7 +367,7 @@ void BaseImporter::ConvertToUTF8(std::vector<char>& data)
 			output.resize(output.size()?output.size()*3/2:data.size()*3/4);
 			dstart = &output.front(),dend = &output.back()+1;
 
-			result = ConvertUTF16toUTF8((const UTF16**)&sstart,(const UTF16*)send,(UTF8**)&dstart,(UTF8*)dend,lenientConversion);
+			result = assimp_ConvertUTF16toUTF8((const UTF16**)&sstart,(const UTF16*)send,(UTF8**)&dstart,(UTF8*)dend,lenientConversion);
 		} while(result == targetExhausted);
 
 		ReportResult(result);

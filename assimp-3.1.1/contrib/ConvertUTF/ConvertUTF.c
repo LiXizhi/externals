@@ -38,7 +38,6 @@
 
 ------------------------------------------------------------------------ */
 
-
 #include "ConvertUTF.h"
 #ifdef CVTUTF_DEBUG
 #include <stdio.h>
@@ -58,7 +57,7 @@ static const UTF32 halfMask = 0x3FFUL;
 
 /* --------------------------------------------------------------------- */
 
-ConversionResult ConvertUTF32toUTF16 (
+ConversionResult assimp_ConvertUTF32toUTF16 (
 	const UTF32** sourceStart, const UTF32* sourceEnd, 
 	UTF16** targetStart, UTF16* targetEnd, ConversionFlags flags) {
     ConversionResult result = conversionOK;
@@ -107,7 +106,7 @@ ConversionResult ConvertUTF32toUTF16 (
 
 /* --------------------------------------------------------------------- */
 
-ConversionResult ConvertUTF16toUTF32 (
+ConversionResult assimp_ConvertUTF16toUTF32 (
 	const UTF16** sourceStart, const UTF16* sourceEnd, 
 	UTF32** targetStart, UTF32* targetEnd, ConversionFlags flags) {
     ConversionResult result = conversionOK;
@@ -155,7 +154,7 @@ ConversionResult ConvertUTF16toUTF32 (
     *targetStart = target;
 #ifdef CVTUTF_DEBUG
 if (result == sourceIllegal) {
-    fprintf(stderr, "ConvertUTF16toUTF32 illegal seq 0x%04x,%04x\n", ch, ch2);
+    fprintf(stderr, "assimp_ConvertUTF16toUTF32 illegal seq 0x%04x,%04x\n", ch, ch2);
     fflush(stderr);
 }
 #endif
@@ -211,7 +210,7 @@ static const UTF8 firstByteMark[7] = { 0x00, 0x00, 0xC0, 0xE0, 0xF0, 0xF8, 0xFC 
 
 /* --------------------------------------------------------------------- */
 
-ConversionResult ConvertUTF16toUTF8 (
+ConversionResult assimp_ConvertUTF16toUTF8 (
 	const UTF16** sourceStart, const UTF16* sourceEnd, 
 	UTF8** targetStart, UTF8* targetEnd, ConversionFlags flags) {
     ConversionResult result = conversionOK;
@@ -323,7 +322,7 @@ static Boolean isLegalUTF8(const UTF8 *source, int length) {
  * Exported function to return whether a UTF-8 sequence is legal or not.
  * This is not used here; it's just exported.
  */
-Boolean isLegalUTF8Sequence(const UTF8 *source, const UTF8 *sourceEnd) {
+Boolean assimp_isLegalUTF8Sequence(const UTF8 *source, const UTF8 *sourceEnd) {
     int length = trailingBytesForUTF8[*source]+1;
     if (source+length > sourceEnd) {
 	return false;
@@ -333,7 +332,7 @@ Boolean isLegalUTF8Sequence(const UTF8 *source, const UTF8 *sourceEnd) {
 
 /* --------------------------------------------------------------------- */
 
-ConversionResult ConvertUTF8toUTF16 (
+ConversionResult assimp_ConvertUTF8toUTF16 (
 	const UTF8** sourceStart, const UTF8* sourceEnd, 
 	UTF16** targetStart, UTF16* targetEnd, ConversionFlags flags) {
     ConversionResult result = conversionOK;
@@ -406,7 +405,7 @@ ConversionResult ConvertUTF8toUTF16 (
 
 /* --------------------------------------------------------------------- */
 
-ConversionResult ConvertUTF32toUTF8 (
+ConversionResult assimp_ConvertUTF32toUTF8 (
 	const UTF32** sourceStart, const UTF32* sourceEnd, 
 	UTF8** targetStart, UTF8* targetEnd, ConversionFlags flags) {
     ConversionResult result = conversionOK;
@@ -459,7 +458,7 @@ ConversionResult ConvertUTF32toUTF8 (
 
 /* --------------------------------------------------------------------- */
 
-ConversionResult ConvertUTF8toUTF32 (
+ConversionResult assimp_ConvertUTF8toUTF32 (
 	const UTF8** sourceStart, const UTF8* sourceEnd, 
 	UTF32** targetStart, UTF32* targetEnd, ConversionFlags flags) {
     ConversionResult result = conversionOK;
