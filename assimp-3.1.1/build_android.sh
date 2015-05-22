@@ -7,7 +7,7 @@ CMAKE_TOOLCHAIN_ROOT="/opt/android-cmake"
 ANDROID_ABI="armeabi"
 ANDROID_NATIVE_API_LEVEL="android-9"
 DESTDIR="$SOURCE_DIR/prebuilt/android/${ANDROID_ABI}"
-
+Boost_INCLUDE_DIR_input="/opt/ParaEngine-Git/Mobile/trunk/ParaCraftMobile/frameworks/runtime-src/external/boost/boost_1_55_0"
 rm -rf $DESTDIR
 mkdir -p $DESTDIR
 
@@ -24,9 +24,11 @@ cmake   -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_ROOT}/android.toolchain.cmake  
         -DCMAKE_BUILD_TYPE=Release                                                  \
         -DANDROID_ABI=${ANDROID_ABI}                                                \
         -DANDROID_NATIVE_API_LEVEL=${ANDROID_NATIVE_API_LEVEL}                      \
-        -DBUILD_ON_ANDROID=TRUE                                                     \
+        -DASSIMP_ENABLE_BOOST_WORKAROUND=OFF                                        \
         -DASSIMP_BUILD_STATIC_LIB=ON                                                \
         -DBUILD_SHARED_LIBS=OFF                                                     \
+        -DBUILD_ON_ANDROID=TRUE                                                     \
+        -DBoost_INCLUDE_DIR_input=${Boost_INCLUDE_DIR_input}                        \
         ..
 
 make
