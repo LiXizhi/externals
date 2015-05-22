@@ -685,7 +685,7 @@ SET( assimp_src_backup
 	${Poly2Tri_SRCS}
 	${Clipper_SRCS}
 	# Necessary to show the headers in the project when using the VC++ generator:
-	${Boost_SRCS}
+	# ${Boost_SRCS}
 
 	${PUBLIC_HEADERS}
 	${COMPILER_HEADERS}
@@ -731,7 +731,7 @@ SET( assimp_src
 	${Poly2Tri_SRCS}
 	${Clipper_SRCS}
 	# Necessary to show the headers in the project when using the VC++ generator:
-	${Boost_SRCS}
+	# ${Boost_SRCS}
 
 	${PUBLIC_HEADERS}
 	${COMPILER_HEADERS}
