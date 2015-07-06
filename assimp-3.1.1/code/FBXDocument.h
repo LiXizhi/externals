@@ -560,6 +560,11 @@ public:
 		return crop;
 	}
 
+	// return texture content 
+	const std::string& Content() const {
+		return content;
+	}
+
 private:
 
 	aiVector2D uvTrans;
@@ -572,6 +577,45 @@ private:
 	boost::shared_ptr<const PropertyTable> props;
 
 	unsigned int crop[4];
+
+	std::string content;
+};
+
+
+/** DOM class for video */
+class Video : public Object
+{
+public:
+
+	Video(uint64_t id, const Element& element, const Document& doc, const std::string& name);
+	~Video();
+
+public:
+
+	const std::string& Type() const {
+		return type;
+	}
+
+	const std::string& FileName() const {
+		return fileName;
+	}
+
+	const std::string& RelativeFilename() const {
+		return relativeFileName;
+	}
+
+	// return texture content 
+	const std::string& Content() const {
+		return content;
+	}
+
+private:
+
+	std::string type;
+	std::string relativeFileName;
+	std::string fileName;
+
+	std::string content;
 };
 
 /** DOM class for layered FBX textures */

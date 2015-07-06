@@ -260,6 +260,18 @@ inline aiReturn aiMaterial::AddProperty(const int* pInput,
 		pKey,type,index,aiPTI_Integer);
 }
 
+// ---------------------------------------------------------------------------
+inline aiReturn aiMaterial::AddProperty(const char* pInput,
+	const unsigned int pNumValues,
+	const char* pKey,
+	unsigned int type,
+	unsigned int index)
+{
+	return AddBinaryProperty((const void*)pInput,
+		pNumValues * sizeof(char),
+		pKey,type,index,aiPTI_Char);
+}
+
 
 // ---------------------------------------------------------------------------
 // The template specializations below are for backwards compatibility.

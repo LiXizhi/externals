@@ -204,6 +204,12 @@ SET( CSM_SRCS
 )
 SOURCE_GROUP( CSM FILES ${CSM_SRCS})
 
+SET( Base64_SRCS
+	ZBase64.cpp
+	ZBase64.h
+)
+SOURCE_GROUP( Base64 FILES ${Base64_SRCS})
+
 SET( HMP_SRCS
 	HMPFileData.h
 	HMPLoader.cpp
@@ -646,6 +652,7 @@ SET( assimp_src_backup
 	${Collada_SRCS}
 	${DXF_SRCS}
 	${CSM_SRCS}
+	${Base64_SRCS}
 	${HMP_SRCS}
 	${Irr_SRCS}
 	${LWO_SRCS}
@@ -723,6 +730,7 @@ SET( assimp_src
         ${MaterialSystem_SRCS}
 	${STL_SRCS}
 	${FBX_SRCS}
+	${Base64_SRCS}
 	
 	# Third-party libraries
 	${IrrXML_SRCS}

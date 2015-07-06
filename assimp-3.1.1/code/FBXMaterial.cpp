@@ -51,6 +51,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "FBXImportSettings.h"
 #include "FBXDocumentUtil.h"
 #include "FBXProperties.h"
+#include "ZBase64.h"
 
 namespace Assimp {
 namespace FBX {
@@ -199,10 +200,68 @@ Texture::Texture(uint64_t id, const Element& element, const Document& doc, const
 	}
 
 	props = GetPropertyTable(doc,"Texture.FbxFileTexture",element,sc);
+
+	const std::vector<const Connection*>& conns = doc.GetConnectionsByDestinationSequenced(ID());
+
+	BOOST_FOREACH(const Connection* con, conns) {
+
+		const Object* const ob = con->SourceObject();
+		if(!ob) {
+			DOMWarning("failed to read source object for texture link, ignoring",&element);
+			continue;
+		}
+
+		const Video* const video = dynamic_cast<const Video*>(ob);
+		if(!video)
+			DOMWarning("source object for video link is not video, ignoring",&element);
+		else
+		{
+			content = video->Content();
+		}
+	}
 }
 
 
 Texture::~Texture()
+{
+	
+}
+
+
+Video::Video(uint64_t id, const Element& element, const Document& doc, const std::string& name)
+	: Object(id,element,name)
+{
+	const Scope& sc = GetRequiredScope(element);
+
+	const Element* const Type = sc["Type"];
+	const Element* const FileName = sc["FileName"];
+	const Element* const RelativeFilename = sc["RelativeFilename"];
+	const Element* const Content = sc["Content"];
+	if(doc.IsBinary())
+		content = std::string(Content->Tokens()[0]->begin()+5,Content->Tokens()[0]->StringContents().size()-5);
+	else
+	{
+		content = std::string(Content->Tokens()[0]->begin()+1,Content->Tokens()[0]->StringContents().size()-2);
+		ZBase64 base64;
+		int content_len = 0;
+		content = base64.Decode(content.c_str(),content.size(),content_len);
+	}
+
+	if(Type) {
+		type = ParseTokenAsString(GetRequiredToken(*Type,0));
+	}
+
+	if(FileName) {
+		fileName = ParseTokenAsString(GetRequiredToken(*FileName,0));
+	}
+
+	if(RelativeFilename) {
+		relativeFileName = ParseTokenAsString(GetRequiredToken(*RelativeFilename,0));
+	}
+}
+
+
+Video::~Video()
 {
 
 }

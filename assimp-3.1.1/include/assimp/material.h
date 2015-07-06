@@ -563,6 +563,10 @@ enum aiPropertyTypeInfo
     */
     aiPTI_Buffer  = 0x5,
 
+	/** Array of char
+	 *  this only be used to transfer the content of vedio
+	*/
+	aiPTI_Char = 0x6,
 
 	 /** This value is not used. It is just there to force the
 	 *  compiler to map this enum to a 32 Bit integer.
@@ -852,6 +856,12 @@ public:
 		unsigned int type  = 0,
 		unsigned int index = 0);
 
+	aiReturn AddProperty (const char* pInput,
+		unsigned int pNumValues,
+		const char* pKey,
+		unsigned int type  = 0,
+		unsigned int index = 0);
+
 	aiReturn AddProperty (const aiUVTransform* pInput,
 		unsigned int pNumValues,
 		const char* pKey,
@@ -932,6 +942,7 @@ extern "C" {
 #define _AI_MATKEY_TEXMAP_AXIS_BASE		"$tex.mapaxis"
 #define _AI_MATKEY_UVTRANSFORM_BASE		"$tex.uvtrafo"
 #define _AI_MATKEY_TEXFLAGS_BASE		"$tex.flags"
+#define _AI_MATKEY_CONTENT_BASE			"$tex.content"
 //! @endcond
 
 // ---------------------------------------------------------------------------
@@ -1331,6 +1342,9 @@ extern "C" {
 	AI_MATKEY_TEXFLAGS(aiTextureType_UNKNOWN,N)
 
 // ---------------------------------------------------------------------------
+#define _AI_MATKEY_CONTENT(type, N) _AI_MATKEY_CONTENT_BASE,type,N
+
+// ---------------------------------------------------------------------------
 /** @brief Retrieve a material property with a specific key from the material
  *
  * @param pMat Pointer to the input material. May not be NULL
@@ -1432,6 +1446,18 @@ ASSIMP_API C_ENUM aiReturn aiGetMaterialIntegerArray(const C_STRUCT aiMaterial* 
 	 unsigned int  type,
 	 unsigned int  index,
     int* pOut,
+    unsigned int* pMax);
+
+// ---------------------------------------------------------------------------
+/** @brief Retrieve an array of char values with a specific key 
+ *  from a material
+ *
+ * See the sample for aiGetMaterialFloatArray for more information.*/
+ASSIMP_API C_ENUM aiReturn aiGetMaterialCharArray(const C_STRUCT aiMaterial* pMat, 
+    const char* pKey,
+	 unsigned int  type,
+	 unsigned int  index,
+    char** pOut,
     unsigned int* pMax);
 
 
@@ -1549,7 +1575,9 @@ ASSIMP_API aiReturn aiGetMaterialTexture(const C_STRUCT aiMaterial* mat,
     float* blend				= NULL,
     aiTextureOp* op				= NULL,
 	aiTextureMapMode* mapmode	= NULL,
-	unsigned int* flags         = NULL); 
+	unsigned int* flags         = NULL,
+	char** content				= NULL,
+	unsigned int* content_len	= NULL); 
 #else
 C_ENUM aiReturn aiGetMaterialTexture(const C_STRUCT aiMaterial* mat,
     C_ENUM aiTextureType type,
@@ -1560,7 +1588,9 @@ C_ENUM aiReturn aiGetMaterialTexture(const C_STRUCT aiMaterial* mat,
     float* blend						/*= NULL*/,
     C_ENUM aiTextureOp* op				/*= NULL*/,
 	C_ENUM aiTextureMapMode* mapmode	/*= NULL*/,
-	unsigned int* flags                 /*= NULL*/); 
+	unsigned int* flags                 /*= NULL*/,
+	char** content						/*= NULL*/,
+	unsigned int* content_len			/*= NULL*/); 
 #endif // !#ifdef __cplusplus
 
 #ifdef __cplusplus

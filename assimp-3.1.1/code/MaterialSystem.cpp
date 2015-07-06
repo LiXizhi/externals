@@ -157,6 +157,43 @@ aiReturn aiGetMaterialFloatArray(const aiMaterial* pMat,
 }
 
 // ------------------------------------------------------------------------------------------------
+// Get an array of char-point values from the material.
+aiReturn aiGetMaterialCharArray(const aiMaterial* pMat, 
+	const char* pKey,
+	unsigned int type,
+	unsigned int index,
+	char** pOut,
+	unsigned int* pMax)
+{
+	ai_assert (pOut != NULL);
+	ai_assert (pMat != NULL);
+
+	const aiMaterialProperty* prop;
+	aiGetMaterialProperty(pMat,pKey,type,index, (const aiMaterialProperty**) &prop);
+	if (!prop) {
+		return AI_FAILURE;
+	}
+	unsigned int iWrite = 0;
+	if( aiPTI_Char == prop->mType)	{
+		iWrite = prop->mDataLength / sizeof(char);
+		if (pMax && *pMax != -1) {
+			iWrite = std::min(*pMax,iWrite); ;
+		}
+		*pOut = prop->mData;
+		
+		if (pMax) {
+			*pMax = iWrite;
+		}
+	}
+	else
+	{
+		return AI_FAILURE;
+	}
+	return AI_SUCCESS;
+
+}
+
+// ------------------------------------------------------------------------------------------------
 // Get an array if integers from the material
 aiReturn aiGetMaterialIntegerArray(const aiMaterial* pMat, 
 	const char* pKey,
@@ -325,8 +362,9 @@ aiReturn aiGetMaterialTexture(const C_STRUCT aiMaterial* mat,
     float* blend				/*= NULL*/,
     aiTextureOp* op				/*= NULL*/,
 	aiTextureMapMode* mapmode	/*= NULL*/,
-	unsigned int* flags         /*= NULL*/
-	)
+	unsigned int* flags         /*= NULL*/,
+	char** content				/*= NULL*/,
+	unsigned int* content_len	/*= NULL*/)
 {
 	ai_assert(NULL != mat && NULL != path);
 
@@ -334,6 +372,9 @@ aiReturn aiGetMaterialTexture(const C_STRUCT aiMaterial* mat,
 	if (AI_SUCCESS != aiGetMaterialString(mat,AI_MATKEY_TEXTURE(type,index),path))	{
 		return AI_FAILURE;
 	}
+
+	if(content_len) 
+		aiGetMaterialCharArray(mat,_AI_MATKEY_CONTENT(type,index),content,content_len);
 	// Determine mapping type 
 	aiTextureMapping mapping = aiTextureMapping_UV;
 	aiGetMaterialInteger(mat,AI_MATKEY_MAPPING(type,index),(int*)&mapping);
