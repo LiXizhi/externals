@@ -1458,7 +1458,7 @@ ASSIMP_API C_ENUM aiReturn aiGetMaterialCharArray(const C_STRUCT aiMaterial* pMa
 	 unsigned int  type,
 	 unsigned int  index,
     char** pOut,
-    unsigned int* pMax);
+    int* pMax);
 
 
 #ifdef __cplusplus
@@ -1577,7 +1577,7 @@ ASSIMP_API aiReturn aiGetMaterialTexture(const C_STRUCT aiMaterial* mat,
 	aiTextureMapMode* mapmode	= NULL,
 	unsigned int* flags         = NULL,
 	char** content				= NULL,
-	unsigned int* content_len	= NULL); 
+	int* content_len	= NULL); 
 #else
 C_ENUM aiReturn aiGetMaterialTexture(const C_STRUCT aiMaterial* mat,
     C_ENUM aiTextureType type,
@@ -1590,7 +1590,7 @@ C_ENUM aiReturn aiGetMaterialTexture(const C_STRUCT aiMaterial* mat,
 	C_ENUM aiTextureMapMode* mapmode	/*= NULL*/,
 	unsigned int* flags                 /*= NULL*/,
 	char** content						/*= NULL*/,
-	unsigned int* content_len			/*= NULL*/); 
+	int* content_len			/*= NULL*/); 
 #endif // !#ifdef __cplusplus
 
 #ifdef __cplusplus

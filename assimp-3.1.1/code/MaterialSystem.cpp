@@ -163,7 +163,7 @@ aiReturn aiGetMaterialCharArray(const aiMaterial* pMat,
 	unsigned int type,
 	unsigned int index,
 	char** pOut,
-	unsigned int* pMax)
+	int* pMax)
 {
 	ai_assert (pOut != NULL);
 	ai_assert (pMat != NULL);
@@ -177,7 +177,7 @@ aiReturn aiGetMaterialCharArray(const aiMaterial* pMat,
 	if( aiPTI_Char == prop->mType)	{
 		iWrite = prop->mDataLength / sizeof(char);
 		if (pMax && *pMax != -1) {
-			iWrite = std::min(*pMax,iWrite); ;
+			iWrite = std::min((unsigned int)*pMax,iWrite); ;
 		}
 		*pOut = prop->mData;
 		
@@ -364,7 +364,7 @@ aiReturn aiGetMaterialTexture(const C_STRUCT aiMaterial* mat,
 	aiTextureMapMode* mapmode	/*= NULL*/,
 	unsigned int* flags         /*= NULL*/,
 	char** content				/*= NULL*/,
-	unsigned int* content_len	/*= NULL*/)
+	int* content_len	/*= NULL*/)
 {
 	ai_assert(NULL != mat && NULL != path);
 
