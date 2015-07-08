@@ -1466,7 +1466,15 @@ private:
 			out_mat->AddProperty(&path,_AI_MATKEY_TEXTURE_BASE,target,0);
 
 			if (tex->Content() != "")
-				out_mat->AddProperty(tex->Content().c_str(),tex->Content().size(),_AI_MATKEY_CONTENT_BASE,target,0);
+			{
+				out->beEmbedTex = true;
+				out_mat->AddProperty(tex->Content().c_str(), tex->Content().size(), _AI_MATKEY_CONTENT_BASE, target, 0);
+			}
+			else
+			{
+				out->beEmbedTex = false;
+			}
+				
 
 			aiUVTransform uvTrafo;
 			// XXX handle all kinds of UV transformations
