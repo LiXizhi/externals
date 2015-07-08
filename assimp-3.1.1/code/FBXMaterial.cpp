@@ -239,6 +239,19 @@ Video::Video(uint64_t id, const Element& element, const Document& doc, const std
 	const Element* const FileName = sc["FileName"];
 	const Element* const RelativeFilename = sc["RelativeFilename"];
 	const Element* const Content = sc["Content"];
+
+	if (Type) {
+		type = ParseTokenAsString(GetRequiredToken(*Type, 0));
+	}
+
+	if (FileName) {
+		fileName = ParseTokenAsString(GetRequiredToken(*FileName, 0));
+	}
+
+	if (RelativeFilename) {
+		relativeFileName = ParseTokenAsString(GetRequiredToken(*RelativeFilename, 0));
+	}
+	string str_content = Content->Tokens()[0]->StringContents();
 	if (Content)
 	{
 		if (doc.IsBinary())
@@ -250,19 +263,7 @@ Video::Video(uint64_t id, const Element& element, const Document& doc, const std
 			int content_len = 0;
 			content = base64.Decode(content.c_str(), content.size(), content_len);
 		}
-	}
-
-	if(Type) {
-		type = ParseTokenAsString(GetRequiredToken(*Type,0));
-	}
-
-	if(FileName) {
-		fileName = ParseTokenAsString(GetRequiredToken(*FileName,0));
-	}
-
-	if(RelativeFilename) {
-		relativeFileName = ParseTokenAsString(GetRequiredToken(*RelativeFilename,0));
-	}
+	}	
 }
 
 

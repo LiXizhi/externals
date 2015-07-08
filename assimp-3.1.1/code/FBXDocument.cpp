@@ -192,6 +192,9 @@ const Object* LazyObject::Get(bool dieOnError)
 		else if (!strncmp(obtype,"AnimationCurveNode",length)) {
 			object.reset(new AnimationCurveNode(id,element,name,doc));
 		}	
+		else if (!strncmp(obtype,"Video",length)) {
+			object.reset(new Video(id,element,doc,name));
+		}
 	}
 	catch(std::exception& ex) {
 		flags &= ~BEING_CONSTRUCTED;
