@@ -251,7 +251,6 @@ Video::Video(uint64_t id, const Element& element, const Document& doc, const std
 	if (RelativeFilename) {
 		relativeFileName = ParseTokenAsString(GetRequiredToken(*RelativeFilename, 0));
 	}
-	string str_content = Content->Tokens()[0]->StringContents();
 	if (Content)
 	{
 		if (doc.IsBinary())
