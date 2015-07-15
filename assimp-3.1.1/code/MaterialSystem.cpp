@@ -168,17 +168,18 @@ aiReturn aiGetMaterialCharArray(const aiMaterial* pMat,
 	ai_assert (pOut != NULL);
 	ai_assert (pMat != NULL);
 
-	const aiMaterialProperty* prop;
-	aiGetMaterialProperty(pMat,pKey,type,index, (const aiMaterialProperty**) &prop);
+	const aiMaterialProperty* prop = NULL;
+	aiGetMaterialProperty(pMat,pKey,type,index, &prop);
 	if (!prop) {
 		return AI_FAILURE;
 	}
 	unsigned int iWrite = 0;
-	if( aiPTI_Char == prop->mType)	{
+	if( aiPTI_Buffer == prop->mType)	
+	{
 		iWrite = prop->mDataLength / sizeof(char);
-		if (pMax && *pMax != -1) {
-			iWrite = std::min((unsigned int)*pMax,iWrite); ;
-		}
+		/*if (pMax && *pMax != -1) {
+			iWrite = std::min((unsigned int)*pMax,iWrite);
+		}*/
 		*pOut = prop->mData;
 		
 		if (pMax) {

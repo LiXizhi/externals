@@ -563,11 +563,6 @@ enum aiPropertyTypeInfo
     */
     aiPTI_Buffer  = 0x5,
 
-	/** Array of char
-	 *  this only be used to transfer the content of vedio
-	*/
-	aiPTI_Char = 0x6,
-
 	 /** This value is not used. It is just there to force the
 	 *  compiler to map this enum to a 32 Bit integer.
 	 */

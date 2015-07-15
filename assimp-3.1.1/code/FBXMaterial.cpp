@@ -148,7 +148,6 @@ Material::~Material()
 Texture::Texture(uint64_t id, const Element& element, const Document& doc, const std::string& name)
 : Object(id,element,name)
 , uvScaling(1.0f,1.0f)
-, content("")
 {
 	const Scope& sc = GetRequiredScope(element);
 
@@ -231,7 +230,6 @@ Texture::~Texture()
 
 Video::Video(uint64_t id, const Element& element, const Document& doc, const std::string& name)
 	: Object(id,element,name)
-	, content("")
 {
 	const Scope& sc = GetRequiredScope(element);
 
@@ -254,15 +252,19 @@ Video::Video(uint64_t id, const Element& element, const Document& doc, const std
 	
 	if (Content)
 	{
-		string str_content = Content->Tokens()[0]->StringContents();
-		if (doc.IsBinary())
-			content = std::string(Content->Tokens()[0]->begin() + 5, Content->Tokens()[0]->StringContents().size() - 5);
-		else
+		content.clear();
+		string sContent = Content->Tokens()[0]->StringContents();
+		if (sContent.size() > 5)
 		{
-			content = std::string(Content->Tokens()[0]->begin() + 1, Content->Tokens()[0]->StringContents().size() - 2);
-			ZBase64 base64;
-			int content_len = 0;
-			content = base64.Decode(content.c_str(), content.size(), content_len);
+			if (doc.IsBinary())
+				content.append(&(sContent[5]), sContent.size() - 5);
+			else
+			{
+				content.append(&(sContent[1]), sContent.size() - 2);
+				ZBase64 base64;
+				int content_len = 0;
+				content = base64.Decode(content.c_str(), content.size(), content_len);
+			}
 		}
 	}	
 }

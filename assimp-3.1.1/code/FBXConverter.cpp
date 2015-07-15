@@ -1465,7 +1465,7 @@ private:
 
 			out_mat->AddProperty(&path,_AI_MATKEY_TEXTURE_BASE,target,0);
 
-			if (tex->Content() != "")
+			if (! tex->Content().empty())
 				out_mat->AddProperty(tex->Content().c_str(),tex->Content().size(),_AI_MATKEY_CONTENT_BASE,target,0);
 
 			aiUVTransform uvTrafo;

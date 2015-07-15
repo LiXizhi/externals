@@ -269,7 +269,7 @@ inline aiReturn aiMaterial::AddProperty(const char* pInput,
 {
 	return AddBinaryProperty((const void*)pInput,
 		pNumValues * sizeof(char),
-		pKey,type,index,aiPTI_Char);
+		pKey,type,index,aiPTI_Buffer);
 }
 
 

@@ -50,7 +50,7 @@ string ZBase64::Encode(const unsigned char* Data, int DataByte)
 string ZBase64::Decode(const char* Data, int DataByte, int& OutByte)
 {
 	//解码表
-	const char DecodeTable[] =
+	static const char DecodeTable[] =
 	{
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -67,6 +67,7 @@ string ZBase64::Decode(const char* Data, int DataByte, int& OutByte)
 	};
 	//返回值
 	string strDecode;
+	strDecode.reserve(DataByte / 4);
 	int nValue;
 	int i = 0;
 	while (i < DataByte)
