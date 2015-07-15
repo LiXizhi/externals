@@ -375,10 +375,6 @@ struct aiScene
 	*/
 	C_STRUCT aiCamera** mCameras;
 
-	// whether the texture content be embedded in the fbx file
-	
-	bool beEmbedTex;
-
 #ifdef __cplusplus
 
 	//! Default constructor - set everything to 0/NULL
@@ -412,12 +408,6 @@ struct aiScene
 	//! Check whether the scene contains animations
 	inline bool HasAnimations() const 
 		{ return mAnimations != NULL && mNumAnimations > 0; }
-
-	//! Check whether embed the texture content
-	inline bool HasEmbedTex() const
-	{
-		return beEmbedTex;
-	}
 
 #endif // __cplusplus
 
