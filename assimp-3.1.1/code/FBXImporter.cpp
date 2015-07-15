@@ -151,6 +151,7 @@ void FBXImporter::InternReadFile( const std::string& pFile,
 	// streaming for its output data structures so the net win with
 	// streaming input data would be very low.
 	std::vector<char> contents;
+	contents.reserve(stream->FileSize() + 1);
 	contents.resize(stream->FileSize());
 
 	stream->Read(&*contents.begin(),contents.size(),1);
@@ -167,6 +168,8 @@ void FBXImporter::InternReadFile( const std::string& pFile,
 			TokenizeBinary(tokens,begin,contents.size());
 		}
 		else {
+			// By LiXizhi: fixed end of text parsing error, that may randomly occur. 
+			contents.push_back('\0');
 			Tokenize(tokens,begin);
 		}
 
